@@ -25,3 +25,17 @@ Route::get('auth/logout', 'Auth\AuthController@getLogout');
 // Registration routes...
 Route::get('auth/register', 'Auth\AuthController@getRegister');
 Route::post('auth/register', 'Auth\AuthController@postRegister');
+
+//Api Key routes...
+Route::get('apikey', 'ApiKey\ApiKeyController@index');
+Route::post('apikey/create', 'ApiKey\ApiKeyController@create');
+Route::post('apikey/edit', 'ApiKey\ApiKeyController@edit');
+Route::post('apikey/delete', 'ApiKey\ApiKeyController@delete');
+
+//File routes...
+Route::get('file', 'File\FileController@index');
+Route::post('file/upload', 'File\FileController@upload');
+
+//Api routes
+Route::get('api/list', 'Api\ApiController@index');
+Route::get('api/top', 'Api\ApiController@top');
