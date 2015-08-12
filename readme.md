@@ -1,27 +1,36 @@
-## Laravel PHP Framework
+## Soccer API
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/d/total.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
+Api to retrieve soccer data.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.
+## Installation
 
-Laravel is accessible, yet powerful, providing powerful tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+Run composer install.
 
-## Official Documentation
+Copy and rename the .env.example file in root to .env
 
-Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
+Create your database in /storage name it database.sql or edit the config folder to allow different location or name.
 
-## Contributing
+Directories within the storage and the bootstrap/cache directories should be writable by your web server.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+In the root directory run **php artisan migrate**.
 
-## Security Vulnerabilities
+To run the server run the command **php artisan serve**.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+## Usage
 
-### License
+Once the server is up and running you can to localhost:8000 in your browser. You'll be required to sign up. After that create your api key. Delete or reset is available incase the key is compromised. Head over to the file link and upload the soccer.dat file to populate the database. You are ready to use the api.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+## API
+You have serveral api calls. All calls require an api key and return json.
+
+Example: `localhost:8000/api/list?key={apikeyhere}`
+
+`api/list` will return json with all data.
+
+`api/top` will return top goal differences.
+
+`api/create` will allow to create a entry in the data. This requires the name of the team with all other fields optional. Parameters: 'name', 'wins', 'loses', 'draws', 'goals_for', 'goals_against', 'points', 'last_game_day'
+
+`api/edit/{id}` allows to edit existing data with a given id. All fields(mentioned above) can be updated.
+
+`api/delete/{id}` will delete data with a given id.
