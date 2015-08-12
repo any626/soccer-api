@@ -1,19 +1,42 @@
 @extends('app')
 
 @section('content')
-    <form action="/file/upload" method="post" enctype="multipart/form-data">
-        <input type="hidden" id="auth-token" name="_token" value="{{ csrf_token() }}">
-        <input type="file" name="file">
-        <input type="submit">
-    </form>
-@endsection
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">Login</div>
+                <div class="panel-body">
+                    @if (count($errors) > 0)
+                        <div class="alert alert-danger">
+                            <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
 
-@foreach ($errors->all() as $error)
-    <div>{{ $error }}</div>
-@endforeach
-@if(Session::has('fileError'))
-{{{ Session::get('fileError') }}}
-@endif
-@section('js')
-    <script type="text/javascript" src="{{ asset('js/apiKeys.js') }}"></script>
+                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/file/upload') }}" enctype="multipart/form-data">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">File</label>
+                            <div class="col-md-6">
+                                <input type="file" name="file">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-4">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

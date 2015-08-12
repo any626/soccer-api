@@ -74,8 +74,9 @@ class FileController extends Controller{
 
 	/**
 	 * Extracts data from the file
-	 * @param  [type] $fileObject [description]
-	 * @return [type]             [description]
+	 * @param  SplFileObject $fileObject  File object.
+	 * @throws                            Invalid data exception.
+	 * @return array                      Filtered data.
 	 */
 	private function extractData($fileObject){
 		$data = array();
@@ -95,6 +96,11 @@ class FileController extends Controller{
 		return $data;
 	}
 
+	/**
+	 * Helper to populate the database.
+	 * @param  array $data  Data to be saved.
+	 * @throws              Exception is thrown when unable to save.
+	 */
 	private function populateTable($data){
 		//skip first row
 		for($i = 1; $i < count($data); $i++){

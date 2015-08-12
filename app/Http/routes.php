@@ -36,6 +36,10 @@ Route::post('apikey/delete', 'ApiKey\ApiKeyController@delete');
 Route::get('file', 'File\FileController@index');
 Route::post('file/upload', 'File\FileController@upload');
 
-//Api routes
+//Api routes...
+//api routes are exempt from token authentication in the App\Controllers\Kernel.php
 Route::get('api/list', 'Api\ApiController@index');
 Route::get('api/top', 'Api\ApiController@top');
+Route::post('api/create', 'Api\ApiController@create');
+Route::post('api/edit/{id}', 'Api\ApiController@edit');
+Route::post('api/delete/{id}', 'Api\ApiController@delete');
