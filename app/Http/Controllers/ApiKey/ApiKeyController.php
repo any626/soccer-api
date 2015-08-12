@@ -41,24 +41,27 @@ class ApiKeyController extends Controller
 	 * @return json  Empty response on successful or error on failure
 	 */
 	public function create(){
-		$user = Auth::user();
-		$userId = $user->id;
+		//must be ajax
+		if(Request::ajax()){
+			$user = Auth::user();
+			$userId = $user->id;
 
-		//only allowed one key
-		$numberOfKeys = ApiKey::where('user_id', $userId)->count();
-		if($numberOfKeys !== 0){
-			return response()->json(array('error' => 'Requesting too many keys'), 403);
-		}
-		$apiKeyModel = new ApiKey();
-		$key = md5(microtime());
-		$apiKeyModel->user_id = $userId;
-		$apiKeyModel->api_key = $key;
-		$saved = $apiKeyModel->save();
-		if($saved){
-			// return response()->json(array('key' => $key));
-			return redirect('/apikey');
-		} else {
-			return response()->json(array('error' => 'Unable to generate key'), 500);
+			//only allowed one key
+			$numberOfKeys = ApiKey::where('user_id', $userId)->count();
+			if($numberOfKeys !== 0){
+				return response()->json(array('error' => 'Requesting too many keys'), 403);
+			}
+			$apiKeyModel = new ApiKey();
+			$key = md5(microtime());
+			$apiKeyModel->user_id = $userId;
+			$apiKeyModel->api_key = $key;
+			$saved = $apiKeyModel->save();
+			if($saved){
+				return response()->json(array('key' => $key));
+				// return redirect('/apikey');
+			} else {
+				return response()->json(array('error' => 'Unable to generate key'), 500);
+			}
 		}
 	}
 
@@ -77,7 +80,7 @@ class ApiKeyController extends Controller
 			//users should only have one api key
 			$apiKeyModel = ApiKey::where('user_id', $userId)->first();
 			$apiKeyModel->api_key = $key;
-			$apiKeyModel->save();
+			$updated = $apiKeyModel->save();
 			if($updated){
 				return response()->json(array('key' => $key));
 			} else {
