@@ -58,16 +58,16 @@ class FileController extends Controller{
 					$this->populateTable($data);
 				}catch (Exception $e){
 					Log::error($e->getMessage());
-					return back()->withMessage('fileError', 'Error Saving the data');
+					return back()->withErrors(['Error Saving the data']);
 				}
 
 				return back()->with('success', 'Successful upload.');
 			} else {
-				return back()->withMessage('fileError', 'Unable to upload file.');
+				return back()->withErrors(['Unable to upload file.']);
 			}
 			return 'cool';
 		} else {
-			return back()->withMessage('fileError', 'No File submitted.');
+			return back()->withErrors(['No File submitted.']);
 		}
 
 	}

@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Login</div>
+                <div class="panel-heading">File Upload</div>
                 <div class="panel-body">
                     @if (count($errors) > 0)
                         <div class="alert alert-danger">
@@ -15,6 +15,10 @@
                                     <li>{{ $error }}</li>
                                 @endforeach
                             </ul>
+                        </div>
+                    @elseif (session('success'))
+                        <div class="alert alert-success">
+                            {{session('success')}}
                         </div>
                     @endif
 
