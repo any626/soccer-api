@@ -33,4 +33,4 @@ Example: `localhost:8000/api/list?key={apikeyhere}`
 
 `api/edit/{id}` allows to edit existing data with a given id. All fields(mentioned above) can be updated.
 
-`api/delete/{id} will delete data with a given id.
+`api/delete/{id}` will delete data with a given id.
